@@ -10,6 +10,7 @@ const { connectSQLite } = require('./config/sqlite');
 const queueRoutes = require('./routes/queueRoutes'); // Assume existing
 const authRoutes = require('./routes/authRoutes');
 const { verifyPoW, getChallenge } = require('./middleware/powMiddleware');
+const checkInRoutes = require('./routes/checkInRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +30,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes); // Login/Register
 app.get('/api/pow/challenge', getChallenge); // Get Puzzle
+app.use('/api/checkin', checkInRoutes); // Check-In Endpoint
 
 // Protect Queue Joins with PoW (Rate Limiting)
 // Note: You need to update your queueRoutes to separate the /join endpoint if you want to apply middleware specifically, 
